@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Luke's Math Adventure</title>
+  <link rel="stylesheet" href="css/lab.css">
+</head>
+<body class="game-page">
+  <header class="topbar">
+    <h1>Luke's Math Adventure</h1>
+    <nav>
+      <a class="btn" href="studio.html">🎨 Sprite Studio</a>
+      <button id="help-btn" class="btn" type="button">❓ How to play</button>
+    </nav>
+  </header>
+
+  <main class="game-layout">
+    <section class="hud">
+      <span id="level-name" class="level-name"></span>
+      <span id="crystal-count" class="crystal-count" aria-live="polite"></span>
+    </section>
+
+    <div class="stage">
+      <canvas id="game" aria-label="Island map. Use the arrow keys to walk."></canvas>
+      <div id="toast" class="toast" hidden></div>
+    </div>
+
+    <div class="pad" aria-label="Walk buttons">
+      <button class="btn pad-up" type="button" data-move="up" aria-label="Walk up">▲</button>
+      <button class="btn pad-left" type="button" data-move="left" aria-label="Walk left">◀</button>
+      <button class="btn pad-down" type="button" data-move="down" aria-label="Walk down">▼</button>
+      <button class="btn pad-right" type="button" data-move="right" aria-label="Walk right">▶</button>
+    </div>
+    <p class="tip">Arrow keys or W A S D to walk. You can also click where you want to go.</p>
+  </main>
+
+  <div id="overlay" class="overlay" hidden>
+    <div id="panel" class="panel" role="dialog" aria-modal="true"></div>
+  </div>
+
+  <script type="module" src="src/game/main.js"></script>
+</body>
+</html>

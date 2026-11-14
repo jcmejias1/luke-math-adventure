@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sprite Studio</title>
+  <link rel="stylesheet" href="css/lab.css">
+</head>
+<body class="studio-page">
+  <header class="topbar">
+    <h1>🎨 Sprite Studio</h1>
+    <nav>
+      <a class="btn" href="index.html">🗺️ Back to the game</a>
+    </nav>
+  </header>
+
+  <main class="studio">
+    <section class="files">
+      <label class="name-field">Name <input id="sprite-name" type="text" maxlength="30" spellcheck="false"></label>
+      <button id="open-btn" class="btn" type="button">📂 Open</button>
+      <button id="save-btn" class="btn" type="button">💾 Save</button>
+      <button id="use-btn" class="btn primary" type="button">🎮 Use in game</button>
+      <button id="download-btn" class="btn" type="button">⬇️ Download</button>
+      <label class="btn" for="upload-input">⬆️ Upload</label>
+      <input id="upload-input" type="file" accept=".json,application/json" hidden>
+    </section>
+
+    <aside class="tools" aria-label="Tools">
+      <button class="btn tool" type="button" data-tool="pencil" title="Draw (B)">✏️ Draw</button>
+      <button class="btn tool" type="button" data-tool="eraser" title="Erase (E)">🧽 Erase</button>
+      <button class="btn tool" type="button" data-tool="fill" title="Fill (F)">🪣 Fill</button>
+      <button class="btn tool" type="button" data-tool="picker" title="Pick a color from the picture (I)">💧 Pick color</button>
+      <hr>
+      <button id="undo-btn" class="btn" type="button" title="Undo (⌘Z)">↶ Undo</button>
+      <button id="redo-btn" class="btn" type="button" title="Redo (⇧⌘Z)">↷ Redo</button>
+      <hr>
+      <div class="zoom">
+        <button id="zoom-out" class="btn" type="button" aria-label="Zoom out">🔍−</button>
+        <button id="zoom-in" class="btn" type="button" aria-label="Zoom in">🔍+</button>
+      </div>
+      <label class="size-field">Size
+        <select id="size-select">
+          <option value="8">8 × 8</option>
+          <option value="16">16 × 16</option>
+          <option value="24">24 × 24</option>
+          <option value="32">32 × 32</option>
+        </select>
+      </label>
+    </aside>
+
+    <section class="canvas-wrap">
+      <canvas id="editor" aria-label="Drawing grid"></canvas>
+    </section>
+
+    <aside class="side">
+      <h2>Colors</h2>
+      <div id="palette" class="palette"></div>
+      <label class="color-edit">Change this color <input id="color-input" type="color"></label>
+
+      <h2>Animation</h2>
+      <div class="preview-row">
+        <canvas id="preview" width="96" height="96" aria-label="Animation preview"></canvas>
+        <div class="preview-controls">
+          <button id="play-btn" class="btn" type="button">⏸ Pause</button>
+          <label>Speed <input id="fps" type="range" min="1" max="12"></label>
+        </div>
+      </div>
+
+      <h2>Frames</h2>
+      <div id="frames" class="frames"></div>
+      <div class="frame-actions">
+        <button id="add-frame" class="btn" type="button">➕ New frame</button>
+        <button id="delete-frame" class="btn" type="button">🗑️ Delete frame</button>
+      </div>
+    </aside>
+  </main>
+
+  <div id="overlay" class="overlay" hidden>
+    <div id="panel" class="panel" role="dialog" aria-modal="true"></div>
+  </div>
+  <div id="toast" class="toast" hidden></div>
+
+  <script type="module" src="src/studio/main.js"></script>
+</body>
+</html>

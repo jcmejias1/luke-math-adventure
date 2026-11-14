@@ -1,0 +1,285 @@
+/* Luke's Math Adventure Lab: shared styles for the game and the studio. */
+
+:root {
+  --bg: #f4f1ea;
+  --surface: #ffffff;
+  --ink: #2a2633;
+  --muted: #6b6578;
+  --line: #ddd6c8;
+  --accent: #3b7dd8;
+  --accent-ink: #ffffff;
+  --good: #2f855a;
+  --soft: #fff8e1;
+  --crystal: #7c4dcc;
+  --radius: 14px;
+  --shadow: 0 2px 0 rgba(0, 0, 0, 0.08);
+  font-family: ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: var(--ink);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  min-height: 100vh;
+}
+
+h1, h2, h3 { margin: 0; line-height: 1.2; }
+h1 { font-size: 1.4rem; }
+h2 { font-size: 1.15rem; }
+h3 { font-size: 1rem; margin-top: 12px; color: var(--muted); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+.btn:hover { border-color: var(--accent); }
+.btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.btn:disabled { opacity: 0.45; cursor: default; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn.selected { border-color: var(--accent); background: #e6f0fc; }
+
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 16px;
+  background: var(--surface);
+  border-bottom: 2px solid var(--line);
+}
+.topbar nav { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.muted { color: var(--muted); }
+
+/* ---------- game ---------- */
+
+.game-layout {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 12px 16px 24px;
+  display: grid;
+  gap: 12px;
+}
+
+.hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+.crystal-count { color: var(--crystal); }
+.crystal-count::before { content: "✦ "; }
+
+.stage { position: relative; }
+#game {
+  display: block;
+  width: 100%;
+  height: auto;
+  image-rendering: pixelated;
+  border-radius: var(--radius);
+  border: 3px solid #3d6b35;
+  background: #7cc95b;
+  cursor: pointer;
+}
+#game:focus { outline: none; }
+
+.pad {
+  display: grid;
+  grid-template-columns: repeat(3, 56px);
+  grid-template-areas: ". up ." "left down right";
+  gap: 6px;
+  justify-content: center;
+}
+.pad .btn { font-size: 1.3rem; padding: 0; }
+.pad-up { grid-area: up; }
+.pad-left { grid-area: left; }
+.pad-down { grid-area: down; }
+.pad-right { grid-area: right; }
+
+.tip { text-align: center; color: var(--muted); margin: 0; }
+
+.toast {
+  position: absolute;
+  left: 50%;
+  top: 12px;
+  transform: translateX(-50%);
+  max-width: calc(100% - 24px);
+  padding: 10px 16px;
+  background: rgba(42, 38, 51, 0.92);
+  color: #fff;
+  border-radius: var(--radius);
+  font-weight: 600;
+  text-align: center;
+  pointer-events: none;
+}
+.studio-page .toast { position: fixed; top: auto; bottom: 20px; }
+
+/* ---------- panels (puzzles, signs, menus) ---------- */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(30, 25, 40, 0.45);
+  z-index: 10;
+}
+.overlay[hidden], .toast[hidden] { display: none; }
+
+.panel {
+  width: min(560px, 100%);
+  max-height: calc(100vh - 32px);
+  overflow: auto;
+  padding: 20px;
+  background: var(--surface);
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+  display: grid;
+  gap: 12px;
+}
+.panel p { margin: 0; font-size: 1.1rem; line-height: 1.45; }
+.panel .prompt { font-size: 1.5rem; font-weight: 800; text-align: center; }
+.panel .explain { font-size: 1.3rem; font-weight: 700; color: var(--good); text-align: center; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+
+.choices { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.choice { font-size: 1.5rem; min-height: 64px; }
+.choice.not-this { text-decoration: line-through; }
+.feedback { min-height: 1.4em; text-align: center; color: var(--muted); }
+
+.hints { display: grid; gap: 8px; }
+.hint { background: var(--soft); border-radius: var(--radius); padding: 10px 12px; display: grid; gap: 8px; }
+
+.visual { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; align-items: center; }
+.visual-equation .term, .visual-equation .slot, .visual-sequence .stone, .visual-sequence .slot {
+  min-width: 52px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  font-size: 1.6rem;
+  font-weight: 800;
+  text-align: center;
+}
+.visual-equation .term { background: transparent; }
+.visual-sequence .stone { background: #e8e2d4; }
+.slot { border: 3px dashed var(--accent); color: var(--accent); }
+.visual-array { display: grid; gap: 4px; justify-content: center; max-width: 100%; }
+.visual-dots { gap: 4px; }
+.dot { width: 18px; height: 18px; border-radius: 50%; display: inline-block; }
+.dot.filled { background: var(--crystal); }
+.dot.empty { border: 2px solid var(--crystal); }
+
+.crystal-icon { image-rendering: pixelated; justify-self: center; }
+.crystal-icon.big { width: 64px; height: 64px; }
+.crystal-icon.small { width: 28px; height: 28px; }
+
+/* ---------- sprite studio ---------- */
+
+.studio {
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr) 260px;
+  grid-template-areas: "files files files" "tools canvas side";
+  gap: 14px;
+  padding: 14px 16px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.files { grid-area: files; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.name-field { display: flex; align-items: center; gap: 6px; font-weight: 700; }
+.name-field input {
+  font: inherit;
+  font-size: 1rem;
+  padding: 8px 10px;
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  width: 12em;
+}
+
+.tools { grid-area: tools; display: flex; flex-direction: column; gap: 8px; }
+.tools hr { width: 100%; border: none; border-top: 2px solid var(--line); margin: 4px 0; }
+.tool { justify-content: flex-start; }
+.zoom { display: flex; gap: 6px; }
+.zoom .btn { flex: 1; }
+.size-field { display: grid; gap: 4px; font-weight: 700; }
+.size-field select { font: inherit; padding: 8px; border-radius: var(--radius); border: 2px solid var(--line); }
+
+.canvas-wrap {
+  grid-area: canvas;
+  display: grid;
+  place-items: center;
+  overflow: auto;
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px;
+  min-height: 320px;
+}
+#editor { touch-action: none; cursor: crosshair; image-rendering: pixelated; }
+#editor[data-tool="fill"] { cursor: cell; }
+
+.side { grid-area: side; display: grid; gap: 10px; align-content: start; }
+.palette { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; }
+.swatch {
+  aspect-ratio: 1;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 0;
+}
+.swatch.selected { outline: 3px solid var(--ink); outline-offset: 2px; }
+.color-edit { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-weight: 600; }
+.color-edit input { width: 52px; height: 36px; border: none; background: none; }
+
+.preview-row { display: flex; gap: 10px; align-items: center; }
+#preview { background: #f7f7fb; border: 2px solid var(--line); border-radius: var(--radius); image-rendering: pixelated; }
+.preview-controls { display: grid; gap: 6px; }
+.preview-controls label { display: grid; font-weight: 600; }
+
+.frames { display: flex; flex-wrap: wrap; gap: 6px; }
+.frame-thumb {
+  position: relative;
+  padding: 2px;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  background: #f7f7fb;
+  cursor: pointer;
+}
+.frame-thumb.selected { border-color: var(--accent); }
+.frame-thumb canvas { display: block; image-rendering: pixelated; }
+.frame-thumb span { position: absolute; right: 4px; bottom: 2px; font-size: 0.75rem; font-weight: 700; color: var(--muted); }
+.frame-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.open-list { display: flex; flex-wrap: wrap; gap: 8px; }
+
+@media (max-width: 900px) {
+  .studio {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "files" "tools" "canvas" "side";
+  }
+  .tools { flex-direction: row; flex-wrap: wrap; }
+  .tools hr { display: none; }
+}
+
+@media (max-width: 520px) {
+  .choices { grid-template-columns: repeat(2, 1fr); }
+  h1 { font-size: 1.15rem; }
+}
